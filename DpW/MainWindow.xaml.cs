@@ -59,13 +59,49 @@ namespace DpW
             SetupWindow setupDialog = new SetupWindow();
             if(setupDialog.ShowDialog() == true)
             {
-                string messageText = "";
-                foreach(int count in setupDialog.Hierarchy)
+                int count = setupDialog.Hierarchy[0];
+                Grid[] grVarients = new Grid[2] { spFramework.Children[1] as Grid, spFramework.Children[3] as Grid };
+                
+                foreach(var grVarient in grVarients)
                 {
-                    messageText += count + " ";
+                    grVarient.Children.Clear();
+                    grVarient.ColumnDefinitions.Clear();
+                    for (int i = 0; i < count; ++i)
+                    {
+                        ColumnDefinition newCol = new ColumnDefinition();
+                        grVarient.ColumnDefinitions.Add(newCol);
+
+                        TextBox txtBox = new TextBox();
+                        txtBox.Style = FindResource("acStyle") as Style;
+
+                        Grid.SetColumn(txtBox, i);
+                        grVarient.Children.Add(txtBox);
+                    }
                 }
 
-                MessageBox.Show(messageText);
+                Grid grMatrix = spFramework.Children[5] as Grid;
+                grMatrix.Children.Clear();
+                grMatrix.RowDefinitions.Clear();
+                grMatrix.ColumnDefinitions.Clear();
+                for (int i = 0; i < count; ++i)
+                {
+                    RowDefinition newRow = new RowDefinition();
+                    ColumnDefinition newCol = new ColumnDefinition();
+
+                    grMatrix.RowDefinitions.Add(newRow);
+                    grMatrix.ColumnDefinitions.Add(newCol);
+
+                    for(int j = 0; j < count; ++j)
+                    {
+                        TextBox txtBox = new TextBox();
+                        txtBox.Style = FindResource("acStyle") as Style;
+
+                        Grid.SetRow(txtBox, i);
+                        Grid.SetColumn(txtBox, j);
+
+                        grMatrix.Children.Add(txtBox);
+                    }
+                }
             }
         }
     }

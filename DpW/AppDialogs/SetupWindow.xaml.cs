@@ -98,6 +98,11 @@ namespace DpW.AppDialogs
 
         private void AddLevelClick(object sender, RoutedEventArgs e)
         {
+            if(stackLevels.Children.Count > 0)
+            {
+                return;
+            }
+
             UIElement newChild = NewLastChildLevel();
             RowDefinition newRow = new RowDefinition();
             newRow.Height = new GridLength(40);
